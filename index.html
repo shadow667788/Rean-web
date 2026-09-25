@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REAN CHANNEL</title>
+    <title>Mr Rean Channel Banning</title>
     <style>
         * {
             margin: 0;
@@ -80,23 +80,32 @@
             z-index: 10;
             text-align: center;
             padding: 20px;
+            max-width: 650px;
+        }
+
+        /* MR Text */
+        .mr-text {
+            font-size: 3rem;
+            color: #fff;
+            letter-spacing: 10px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 20px #fff;
         }
 
         /* REAN Text - Huge Glitch */
         .rean-text {
-            font-size: 8rem;
+            font-size: 6rem;
             font-weight: bold;
             color: #ff0000;
             text-transform: uppercase;
-            letter-spacing: 15px;
+            letter-spacing: 12px;
             position: relative;
             animation: main-glitch 2s infinite;
             text-shadow: 
                 0 0 10px #ff0000,
                 0 0 20px #ff0000,
                 0 0 40px #ff0000,
-                0 0 80px #ff0000,
-                0 0 120px #ff0000;
+                0 0 80px #ff0000;
             margin-bottom: 10px;
         }
 
@@ -138,33 +147,34 @@
             }
         }
 
-        /* CHANNEL Text */
-        .channel-text {
-            font-size: 2.5rem;
-            color: #fff;
-            letter-spacing: 20px;
+        /* CHANNEL BANNING Text */
+        .banning-text {
+            font-size: 2rem;
+            color: #ff6600;
+            letter-spacing: 15px;
             margin-top: 20px;
-            animation: pulse-channel 2s infinite;
-            text-shadow: 0 0 30px #fff;
+            animation: pulse-ban 1.5s infinite;
+            text-shadow: 0 0 30px #ff6600;
+            text-transform: uppercase;
         }
 
-        @keyframes pulse-channel {
+        @keyframes pulse-ban {
             0%, 100% { 
                 opacity: 1;
-                text-shadow: 0 0 30px #fff, 0 0 60px #fff;
+                text-shadow: 0 0 30px #ff6600, 0 0 60px #ff6600;
             }
             50% { 
-                opacity: 0.6;
-                text-shadow: 0 0 15px #fff;
+                opacity: 0.7;
+                text-shadow: 0 0 15px #ff6600;
             }
         }
 
         /* Divider Line */
         .divider {
-            width: 300px;
+            width: 350px;
             height: 2px;
             background: linear-gradient(90deg, transparent, #ff0000, transparent);
-            margin: 40px auto;
+            margin: 35px auto;
             animation: line-glow 2s infinite;
         }
 
@@ -173,55 +183,238 @@
             50% { box-shadow: 0 0 30px #ff0000, 0 0 50px #ff0000; }
         }
 
-        /* WhatsApp Button */
-        .whatsapp-btn {
-            display: inline-block;
-            padding: 20px 50px;
-            background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+        /* Input Box Container */
+        .input-container {
+            margin-top: 30px;
+            position: relative;
+        }
+
+        /* Input Label */
+        .input-label {
+            color: #ff0000;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            animation: blink-label 2s infinite;
+        }
+
+        @keyframes blink-label {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Input Box */
+        .link-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 18px 25px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff0000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            outline: none;
+            text-align: center;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3),
+                        inset 0 0 20px rgba(255, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .link-input:focus {
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6),
+                        inset 0 0 30px rgba(255, 0, 0, 0.2);
+            border-color: #ff3333;
+        }
+
+        .link-input::placeholder {
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        /* Ban Button */
+        .ban-btn {
+            display: block;
+            margin: 25px auto 0;
+            padding: 18px 60px;
+            background: linear-gradient(45deg, #1a0000, #330000);
             border: 3px solid #ff0000;
             color: #ff0000;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
-            text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
+            cursor: pointer;
             position: relative;
             overflow: hidden;
             transition: all 0.3s;
+            font-family: 'Courier New', monospace;
             animation: btn-pulse 2s infinite;
-            margin-top: 20px;
         }
 
-        .whatsapp-btn:hover {
+        .ban-btn:hover {
             background: #ff0000;
             color: #000;
-            box-shadow: 0 0 40px #ff0000, 0 0 80px #ff0000;
+            box-shadow: 0 0 50px #ff0000, 0 0 100px #ff0000;
             transform: scale(1.05);
+        }
+
+        .ban-btn:active {
+            transform: scale(0.98);
+        }
+
+        .ban-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         @keyframes btn-pulse {
             0%, 100% { 
                 box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-                border-color: #ff0000;
             }
             50% { 
                 box-shadow: 0 0 40px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.4);
-                border-color: #ff3333;
             }
         }
 
-        /* ENTER Text */
-        .enter-text {
-            font-size: 1rem;
-            color: #666;
+        /* Banning Animation Container */
+        .ban-animation {
+            display: none;
             margin-top: 30px;
-            letter-spacing: 5px;
-            animation: blink 1.5s infinite;
+            padding: 20px;
+            border: 2px solid #ff0000;
+            background: rgba(20, 0, 0, 0.9);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+        .ban-animation.active {
+            display: block;
+            animation: container-glitch 0.5s infinite;
+        }
+
+        @keyframes container-glitch {
+            0%, 100% { transform: translate(0); }
+            25% { transform: translate(-2px, 2px); }
+            50% { transform: translate(2px, -2px); }
+            75% { transform: translate(-1px, -1px); }
+        }
+
+        /* Ban Steps */
+        .ban-step {
+            color: #ff6600;
+            font-size: 0.9rem;
+            margin: 8px 0;
+            text-align: left;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s;
+        }
+
+        .ban-step.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .ban-step.success {
+            color: #0f0;
+        }
+
+        .ban-step::before {
+            content: ">> ";
+            color: #ff0000;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 20px 0;
+            height: 25px;
+            background: #111;
+            border: 1px solid #ff0000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff6600);
+            width: 0%;
+            transition: width 0.3s;
+            box-shadow: 0 0 20px #ff0000;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+            text-shadow: 0 0 5px #000;
+        }
+
+        /* Success Message */
+        .success-msg {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(0, 20, 0, 0.9);
+            border: 3px solid #ff0000;
+            animation: success-flash 0.5s infinite;
+        }
+
+        .success-msg.active {
+            display: block;
+        }
+
+        @keyframes success-flash {
+            0%, 100% { 
+                border-color: #ff0000;
+                box-shadow: 0 0 20px #ff0000;
+            }
+            50% { 
+                border-color: #ff6600;
+                box-shadow: 0 0 40px #ff6600, 0 0 60px #ff0000;
+            }
+        }
+
+        .success-title {
+            color: #ff0000;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+            animation: glitch-text 1s infinite;
+        }
+
+        @keyframes glitch-text {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(3px, -3px); }
+            60% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 2px); }
+        }
+
+        .success-sub {
+            color: #ff6600;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        /* Skull Icon */
+        .skull {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: skull-pulse 1s infinite;
+        }
+
+        @keyframes skull-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
         }
 
         /* Corner Decorations */
@@ -254,10 +447,13 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .rean-text { font-size: 4rem; letter-spacing: 8px; }
-            .channel-text { font-size: 1.5rem; letter-spacing: 10px; }
-            .whatsapp-btn { padding: 15px 30px; font-size: 1.2rem; }
+            .mr-text { font-size: 1.5rem; letter-spacing: 5px; }
+            .rean-text { font-size: 3.5rem; letter-spacing: 6px; }
+            .banning-text { font-size: 1.2rem; letter-spacing: 8px; }
+            .link-input { max-width: 90%; font-size: 0.9rem; }
+            .ban-btn { padding: 15px 40px; font-size: 1.1rem; }
             .corner { width: 50px; height: 50px; }
+            .divider { width: 250px; }
         }
     </style>
 </head>
@@ -277,26 +473,64 @@
 
     <!-- Main Content -->
     <div class="container">
+        <!-- MR Text -->
+        <div class="mr-text">MR</div>
+        
         <!-- REAN Text -->
         <h1 class="rean-text">REAN</h1>
         
-        <!-- CHANNEL Text -->
-        <div class="channel-text">CHANNEL</div>
+        <!-- CHANNEL BANNING Text -->
+        <div class="banning-text">CHANNEL BANNING</div>
 
         <!-- Divider -->
         <div class="divider"></div>
 
-        <!-- WhatsApp Button -->
-        <a href="https://whatsapp.com/channel/0029Vai8q3S1SWt8Rk3G5L0Y" class="whatsapp-btn" target="_blank">
-            Enter WhatsApp Channel
-        </a>
+        <!-- Input Section -->
+        <div class="input-container">
+            <div class="input-label">// Enter WhatsApp Channel Link To Ban //</div>
+            
+            <input 
+                type="text" 
+                class="link-input" 
+                id="channelLink" 
+                placeholder="https://whatsapp.com/channel/..."
+                autocomplete="off"
+            >
+            
+            <button class="ban-btn" id="banBtn" onclick="startBanning()">
+                BAN CHANNEL
+            </button>
 
-        <!-- Enter Text -->
-        <div class="enter-text">[ CLICK TO ENTER ]</div>
+            <!-- Ban Animation -->
+            <div class="ban-animation" id="banAnimation">
+                <!-- Progress -->
+                <div class="progress-container">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <div class="progress-text" id="progressText">0%</div>
+                </div>
+
+                <!-- Ban Steps -->
+                <div class="ban-step" id="step1">Initializing ban protocol...</div>
+                <div class="ban-step" id="step2">Connecting to WhatsApp servers...</div>
+                <div class="ban-step" id="step3">Bypassing channel security...</div>
+                <div class="ban-step" id="step4">Injecting ban payload...</div>
+                <div class="ban-step" id="step5">Disabling channel access...</div>
+                <div class="ban-step" id="step6">Erasing channel data...</div>
+                <div class="ban-step" id="step7">Banning all participants...</div>
+                <div class="ban-step" id="step8">Finalizing ban procedure...</div>
+            </div>
+
+            <!-- Success Message -->
+            <div class="success-msg" id="successMsg">
+                <div class="skull">💀</div>
+                <div class="success-title">CHANNEL BANNED</div>
+                <div class="success-sub">The channel has been permanently banned</div>
+            </div>
+        </div>
     </div>
 
     <!-- Warning -->
-    <div class="warning">⚠ RESTRICTED AREA ⚠</div>
+    <div class="warning">⚠ UNAUTHORIZED ACCESS IS ILLEGAL ⚠</div>
 
     <!-- Matrix Rain Script -->
     <script>
@@ -306,7 +540,7 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const chars = 'アイウエオカキクケコサシスセソ0123456789ABCDEF@#$%&*REAN';
+        const chars = 'アイウエオカキクケコサシスセソ0123456789ABCDEF@#$%&*REANBAN';
         const charArray = chars.split('');
         const fontSize = 16;
         const columns = canvas.width / fontSize;
@@ -341,10 +575,89 @@
             canvas.height = window.innerHeight;
         });
 
-        // Auto redirect after 5 seconds (optional)
-        // setTimeout(() => {
-        //     window.location.href = 'https://whatsapp.com/channel/0029Vai8q3S1SWt8Rk3G5L0Y';
-        // }, 5000);
-    </script>
-</body>
-</html>
+        // Banning Function
+        function startBanning() {
+            const linkInput = document.getElementById('channelLink');
+            const banBtn = document.getElementById('banBtn');
+            const banAnimation = document.getElementById('banAnimation');
+            const successMsg = document.getElementById('successMsg');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+
+            let link = linkInput.value.trim();
+
+            // Validation
+            if (!link) {
+                alert('⚠ PLEASE ENTER CHANNEL LINK');
+                linkInput.focus();
+                return;
+            }
+
+            if (!link.includes('whatsapp.com')) {
+                alert('⚠ INVALID WHATSAPP LINK');
+                linkInput.focus();
+                return;
+            }
+
+            // Reset UI
+            successMsg.classList.remove('active');
+            banBtn.disabled = true;
+            banBtn.style.opacity = '0.5';
+            banBtn.textContent = 'BANNING...';
+            
+            // Show animation
+            banAnimation.classList.add('active');
+
+            // Steps sequence
+            const steps = [
+                'step1', 'step2', 'step3', 'step4', 
+                'step5', 'step6', 'step7', 'step8'
+            ];
+
+            let currentStep = 0;
+            let progress = 0;
+
+            // Progress interval
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 3;
+                if (progress > 100) progress = 100;
+                
+                progressFill.style.width = progress + '%';
+                progressText.textContent = Math.floor(progress) + '%';
+
+                // Show steps based on progress
+                if (progress > (currentStep + 1) * 12 && currentStep < steps.length) {
+                    const stepEl = document.getElementById(steps[currentStep]);
+                    stepEl.classList.add('show');
+                    
+                    setTimeout(() => {
+                        stepEl.classList.add('success');
+                    }, 400);
+                    
+                    currentStep++;
+                }
+
+                // Complete
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    
+                    setTimeout(() => {
+                        // Show success
+                        banAnimation.classList.remove('active');
+                        successMsg.classList.add('active');
+                        
+                        // Reset button
+                        banBtn.disabled = false;
+                        banBtn.style.opacity = '1';
+                        banBtn.textContent = 'BAN CHANNEL';
+                        
+                        // Play sound effect (optional - using Web Audio API)
+                        playBanSound();
+                        
+                    }, 500);
+                }
+            }, 100);
+        }
+
+        // Sound effect function
+        function playBanSound(
