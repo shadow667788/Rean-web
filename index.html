@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHADOW</title>
+    <title>Mr Rean Channel Banning</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             background: #000;
-            min-height: 100vh;
+            height: 100vh;
             overflow: hidden;
             font-family: 'Courier New', monospace;
             display: flex;
@@ -22,65 +22,56 @@
             position: relative;
         }
 
-        /* Animated Background */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255,0,0,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255,0,0,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 20%, rgba(255,0,0,0.05) 0%, transparent 50%);
-            animation: bgPulse 4s ease-in-out infinite;
-        }
-
-        @keyframes bgPulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        /* Matrix Canvas */
+        /* Matrix Rain Background */
         #matrix {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 2;
-            opacity: 0.15;
+            z-index: 1;
+            opacity: 0.4;
         }
 
-        /* Scanlines */
-        .scanlines {
+        /* Scanline Effect */
+        .scanline {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0,0,0,0.15) 0px,
-                rgba(0,0,0,0.15) 1px,
-                transparent 1px,
-                transparent 2px
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(255, 0, 0, 0.03) 50%
             );
+            background-size: 100% 4px;
+            z-index: 2;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Glitch Overlay */
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.02);
             z-index: 3;
             pointer-events: none;
+            animation: glitch-bg 0.3s infinite;
         }
 
-        /* Vignette */
-        .vignette {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 0%, rgba(0,0,0,0.8) 100%);
-            z-index: 4;
-            pointer-events: none;
+        @keyframes glitch-bg {
+            0%, 100% { opacity: 0.02; }
+            50% { opacity: 0.05; }
         }
 
         /* Main Container */
@@ -89,257 +80,351 @@
             z-index: 10;
             text-align: center;
             padding: 20px;
-            max-width: 900px;
+            max-width: 650px;
         }
 
-        /* Glitch Wrapper */
-        .glitch-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 40px;
+        /* MR Text */
+        .mr-text {
+            font-size: 3rem;
+            color: #fff;
+            letter-spacing: 10px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 20px #fff;
         }
 
-        /* Main HACKED Text */
-        .hacked {
-            font-size: 8rem;
-            font-weight: 900;
+        /* REAN Text - Huge Glitch */
+        .rean-text {
+            font-size: 6rem;
+            font-weight: bold;
             color: #ff0000;
             text-transform: uppercase;
-            letter-spacing: 20px;
+            letter-spacing: 12px;
             position: relative;
-            animation: mainGlitch 3s infinite;
+            animation: main-glitch 2s infinite;
             text-shadow: 
                 0 0 10px #ff0000,
                 0 0 20px #ff0000,
                 0 0 40px #ff0000,
-                0 0 80px #ff0000,
-                0 0 120px #ff0000;
+                0 0 80px #ff0000;
+            margin-bottom: 10px;
         }
 
-        /* Glitch Layers */
-        .hacked::before,
-        .hacked::after {
-            content: 'HACKED';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .hacked::before {
-            color: #00ff00;
-            animation: glitch1 2s infinite linear alternate-reverse;
-            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-            transform: translate(-5px, -5px);
-            opacity: 0.8;
-        }
-
-        .hacked::after {
-            color: #0000ff;
-            animation: glitch2 2s infinite linear alternate-reverse;
-            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
-            transform: translate(5px, 5px);
-            opacity: 0.8;
-        }
-
-        @keyframes mainGlitch {
+        @keyframes main-glitch {
             0%, 90%, 100% {
                 transform: translate(0);
-                filter: none;
+                text-shadow: 
+                    0 0 10px #ff0000,
+                    0 0 20px #ff0000,
+                    0 0 40px #ff0000;
             }
             10% {
-                transform: translate(-10px, 5px);
-                filter: hue-rotate(90deg);
-            }
-            20% {
-                transform: translate(10px, -5px);
-                filter: hue-rotate(180deg);
-            }
-            30% {
-                transform: translate(-5px, 10px);
-                filter: hue-rotate(270deg);
-            }
-            40% {
-                transform: translate(5px, -10px);
-                filter: none;
-            }
-        }
-
-        @keyframes glitch1 {
-            0% { clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%); }
-            20% { clip-path: polygon(0 15%, 100% 15%, 100% 50%, 0 50%); }
-            40% { clip-path: polygon(0 40%, 100% 40%, 100% 75%, 0 75%); }
-            60% { clip-path: polygon(0 60%, 100% 60%, 100% 90%, 0 90%); }
-            80% { clip-path: polygon(0 20%, 100% 20%, 100% 55%, 0 55%); }
-            100% { clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%); }
-        }
-
-        @keyframes glitch2 {
-            0% { clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%); }
-            20% { clip-path: polygon(0 50%, 100% 50%, 100% 85%, 0 85%); }
-            40% { clip-path: polygon(0 25%, 100% 25%, 100% 60%, 0 60%); }
-            60% { clip-path: polygon(0 10%, 100% 10%, 100% 45%, 0 45%); }
-            80% { clip-path: polygon(0 45%, 100% 45%, 100% 80%, 0 80%); }
-            100% { clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%); }
-        }
-
-        /* BY SHADOW Text */
-        .by-shadow {
-            font-size: 3rem;
-            color: #fff;
-            letter-spacing: 30px;
-            margin-top: 30px;
-            position: relative;
-            animation: shadowPulse 2s infinite;
-            text-shadow: 
-                0 0 20px #fff,
-                0 0 40px #fff,
-                0 0 60px #ff0000;
-        }
-
-        @keyframes shadowPulse {
-            0%, 100% { 
-                opacity: 1;
+                transform: translate(-8px, 4px);
                 text-shadow: 
-                    0 0 20px #fff,
-                    0 0 40px #fff,
-                    0 0 60px #ff0000;
-            }
-            50% { 
-                opacity: 0.8;
-                text-shadow: 
-                    0 0 10px #fff,
+                    -8px 0 #00ff00,
+                    8px 0 #0000ff,
                     0 0 20px #ff0000;
             }
-        }
-
-        /* Divider */
-        .divider {
-            width: 400px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #ff0000, transparent);
-            margin: 50px auto;
-            position: relative;
-            animation: dividerGlow 2s infinite;
-        }
-
-        .divider::before {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 10px;
-            height: 10px;
-            background: #ff0000;
-            border-radius: 50%;
-            box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
-            animation: dotPulse 1s infinite;
-        }
-
-        @keyframes dividerGlow {
-            0%, 100% { box-shadow: 0 0 20px #ff0000; }
-            50% { box-shadow: 0 0 40px #ff0000, 0 0 60px #ff0000; }
-        }
-
-        @keyframes dotPulse {
-            0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.5); }
-        }
-
-        /* Message Card */
-        .message-card {
-            background: linear-gradient(145deg, rgba(20,0,0,0.9), rgba(40,0,0,0.8));
-            border: 2px solid #ff0000;
-            padding: 40px;
-            margin: 40px auto;
-            max-width: 600px;
-            position: relative;
-            box-shadow: 
-                0 0 30px rgba(255,0,0,0.3),
-                inset 0 0 30px rgba(255,0,0,0.1);
-            animation: cardBorder 3s infinite;
-        }
-
-        @keyframes cardBorder {
-            0%, 100% { 
-                border-color: #ff0000;
-                box-shadow: 0 0 30px rgba(255,0,0,0.3), inset 0 0 30px rgba(255,0,0,0.1);
+            20% {
+                transform: translate(8px, -4px);
+                text-shadow: 
+                    8px 0 #00ff00,
+                    -8px 0 #0000ff,
+                    0 0 30px #ff0000;
             }
-            50% { 
-                border-color: #ff3333;
-                box-shadow: 0 0 50px rgba(255,0,0,0.5), inset 0 0 50px rgba(255,0,0,0.2);
+            30% {
+                transform: translate(-4px, -8px);
+                text-shadow: 
+                    -4px 0 #ff00ff,
+                    4px 0 #00ffff,
+                    0 0 40px #ff0000;
+            }
+            40% {
+                transform: translate(4px, 8px);
+                text-shadow: 
+                    4px 0 #ff00ff,
+                    -4px 0 #00ffff,
+                    0 0 50px #ff0000;
             }
         }
 
-        .message-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #ff0000, transparent, #ff0000);
-            z-index: -1;
-            animation: borderRotate 3s linear infinite;
-        }
-
-        @keyframes borderRotate {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        /* Message Text */
-        .message {
-            font-size: 1.3rem;
-            color: #ff6666;
-            line-height: 2;
-            letter-spacing: 2px;
+        /* CHANNEL BANNING Text */
+        .banning-text {
+            font-size: 2rem;
+            color: #ff6600;
+            letter-spacing: 15px;
+            margin-top: 20px;
+            animation: pulse-ban 1.5s infinite;
+            text-shadow: 0 0 30px #ff6600;
             text-transform: uppercase;
         }
 
-        .message span {
+        @keyframes pulse-ban {
+            0%, 100% { 
+                opacity: 1;
+                text-shadow: 0 0 30px #ff6600, 0 0 60px #ff6600;
+            }
+            50% { 
+                opacity: 0.7;
+                text-shadow: 0 0 15px #ff6600;
+            }
+        }
+
+        /* Divider Line */
+        .divider {
+            width: 350px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            margin: 35px auto;
+            animation: line-glow 2s infinite;
+        }
+
+        @keyframes line-glow {
+            0%, 100% { box-shadow: 0 0 10px #ff0000; }
+            50% { box-shadow: 0 0 30px #ff0000, 0 0 50px #ff0000; }
+        }
+
+        /* Input Box Container */
+        .input-container {
+            margin-top: 30px;
+            position: relative;
+        }
+
+        /* Input Label */
+        .input-label {
             color: #ff0000;
-            font-weight: bold;
-            animation: blink 1s infinite;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            animation: blink-label 2s infinite;
         }
 
-        @keyframes blink {
+        @keyframes blink-label {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            50% { opacity: 0.5; }
         }
 
-        /* Skull */
-        .skull {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: skullFloat 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 20px #ff0000);
+        /* Input Box */
+        .link-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 18px 25px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff0000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            outline: none;
+            text-align: center;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3),
+                        inset 0 0 20px rgba(255, 0, 0, 0.1);
+            transition: all 0.3s;
         }
 
-        @keyframes skullFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .link-input:focus {
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6),
+                        inset 0 0 30px rgba(255, 0, 0, 0.2);
+            border-color: #ff3333;
         }
 
-        /* Timestamp */
-        .timestamp {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            color: rgba(255,0,0,0.5);
+        .link-input::placeholder {
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        /* Ban Button */
+        .ban-btn {
+            display: block;
+            margin: 25px auto 0;
+            padding: 18px 60px;
+            background: linear-gradient(45deg, #1a0000, #330000);
+            border: 3px solid #ff0000;
+            color: #ff0000;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+            animation: btn-pulse 2s infinite;
+        }
+
+        .ban-btn:hover {
+            background: #ff0000;
+            color: #000;
+            box-shadow: 0 0 50px #ff0000, 0 0 100px #ff0000;
+            transform: scale(1.05);
+        }
+
+        .ban-btn:active {
+            transform: scale(0.98);
+        }
+
+        .ban-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @keyframes btn-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.4);
+            }
+        }
+
+        /* Banning Animation Container */
+        .ban-animation {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #ff0000;
+            background: rgba(20, 0, 0, 0.9);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ban-animation.active {
+            display: block;
+            animation: container-glitch 0.5s infinite;
+        }
+
+        @keyframes container-glitch {
+            0%, 100% { transform: translate(0); }
+            25% { transform: translate(-2px, 2px); }
+            50% { transform: translate(2px, -2px); }
+            75% { transform: translate(-1px, -1px); }
+        }
+
+        /* Ban Steps */
+        .ban-step {
+            color: #ff6600;
+            font-size: 0.9rem;
+            margin: 8px 0;
+            text-align: left;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s;
+        }
+
+        .ban-step.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .ban-step.success {
+            color: #0f0;
+        }
+
+        .ban-step::before {
+            content: ">> ";
+            color: #ff0000;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 20px 0;
+            height: 25px;
+            background: #111;
+            border: 1px solid #ff0000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff6600);
+            width: 0%;
+            transition: width 0.3s;
+            box-shadow: 0 0 20px #ff0000;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
             font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+            text-shadow: 0 0 5px #000;
+        }
+
+        /* Success Message */
+        .success-msg {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(0, 20, 0, 0.9);
+            border: 3px solid #ff0000;
+            animation: success-flash 0.5s infinite;
+        }
+
+        .success-msg.active {
+            display: block;
+        }
+
+        @keyframes success-flash {
+            0%, 100% { 
+                border-color: #ff0000;
+                box-shadow: 0 0 20px #ff0000;
+            }
+            50% { 
+                border-color: #ff6600;
+                box-shadow: 0 0 40px #ff6600, 0 0 60px #ff0000;
+            }
+        }
+
+        .success-title {
+            color: #ff0000;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+            animation: glitch-text 1s infinite;
+        }
+
+        @keyframes glitch-text {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(3px, -3px); }
+            60% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 2px); }
+        }
+
+        .success-sub {
+            color: #ff6600;
+            font-size: 1rem;
             letter-spacing: 2px;
+        }
+
+        /* Skull Icon */
+        .skull {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: skull-pulse 1s infinite;
+        }
+
+        @keyframes skull-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
         }
 
         /* Corner Decorations */
         .corner {
             position: fixed;
-            width: 80px;
-            height: 80px;
-            border: 3px solid rgba(255,0,0,0.3);
+            width: 100px;
+            height: 100px;
+            border: 3px solid #ff0000;
             z-index: 5;
+            opacity: 0.5;
         }
 
         .corner-tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
@@ -347,23 +432,38 @@
         .corner-bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
         .corner-br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
 
+        /* Warning Text */
+        .warning {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff0000;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            opacity: 0.6;
+            z-index: 10;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
-            .hacked { font-size: 4rem; letter-spacing: 10px; }
-            .by-shadow { font-size: 1.5rem; letter-spacing: 15px; }
+            .mr-text { font-size: 1.5rem; letter-spacing: 5px; }
+            .rean-text { font-size: 3.5rem; letter-spacing: 6px; }
+            .banning-text { font-size: 1.2rem; letter-spacing: 8px; }
+            .link-input { max-width: 90%; font-size: 0.9rem; }
+            .ban-btn { padding: 15px 40px; font-size: 1.1rem; }
+            .corner { width: 50px; height: 50px; }
             .divider { width: 250px; }
-            .message-card { padding: 25px; margin: 30px 20px; }
-            .message { font-size: 1rem; }
-            .corner { width: 40px; height: 40px; }
         }
     </style>
 </head>
 <body>
-    <!-- Background Layers -->
-    <div class="bg-animation"></div>
+    <!-- Matrix Canvas -->
     <canvas id="matrix"></canvas>
-    <div class="scanlines"></div>
-    <div class="vignette"></div>
+
+    <!-- Effects -->
+    <div class="scanline"></div>
+    <div class="glitch-overlay"></div>
 
     <!-- Corners -->
     <div class="corner corner-tl"></div>
@@ -373,44 +473,76 @@
 
     <!-- Main Content -->
     <div class="container">
-        <!-- Skull -->
-        <div class="skull">💀</div>
-
-        <!-- HACKED Text -->
-        <div class="glitch-wrapper">
-            <h1 class="hacked">HACKED</h1>
-        </div>
-
-        <!-- BY SHADOW -->
-        <div class="by-shadow">BY SHADOW</div>
+        <!-- MR Text -->
+        <div class="mr-text">MR</div>
+        
+        <!-- REAN Text -->
+        <h1 class="rean-text">REAN</h1>
+        
+        <!-- CHANNEL BANNING Text -->
+        <div class="banning-text">CHANNEL BANNING</div>
 
         <!-- Divider -->
         <div class="divider"></div>
 
-        <!-- Message Card -->
-        <div class="message-card">
-            <p class="message">
-                This website hacked by <span>SHADOW</span><br>
-                Bola tha na <span>BAP</span> se panga na le
-            </p>
+        <!-- Input Section -->
+        <div class="input-container">
+            <div class="input-label">// Enter WhatsApp Channel Link To Ban //</div>
+            
+            <input 
+                type="text" 
+                class="link-input" 
+                id="channelLink" 
+                placeholder="https://whatsapp.com/channel/..."
+                autocomplete="off"
+            >
+            
+            <button class="ban-btn" id="banBtn" onclick="startBanning()">
+                BAN CHANNEL
+            </button>
+
+            <!-- Ban Animation -->
+            <div class="ban-animation" id="banAnimation">
+                <!-- Progress -->
+                <div class="progress-container">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <div class="progress-text" id="progressText">0%</div>
+                </div>
+
+                <!-- Ban Steps -->
+                <div class="ban-step" id="step1">Initializing ban protocol...</div>
+                <div class="ban-step" id="step2">Connecting to WhatsApp servers...</div>
+                <div class="ban-step" id="step3">Bypassing channel security...</div>
+                <div class="ban-step" id="step4">Injecting ban payload...</div>
+                <div class="ban-step" id="step5">Disabling channel access...</div>
+                <div class="ban-step" id="step6">Erasing channel data...</div>
+                <div class="ban-step" id="step7">Banning all participants...</div>
+                <div class="ban-step" id="step8">Finalizing ban procedure...</div>
+            </div>
+
+            <!-- Success Message -->
+            <div class="success-msg" id="successMsg">
+                <div class="skull">💀</div>
+                <div class="success-title">CHANNEL BANNED</div>
+                <div class="success-sub">The channel has been permanently banned</div>
+            </div>
         </div>
     </div>
 
-    <!-- Timestamp -->
-    <div class="timestamp" id="timestamp"></div>
+    <!-- Warning -->
+    <div class="warning">⚠ UNAUTHORIZED ACCESS IS ILLEGAL ⚠</div>
 
-    <!-- Matrix Script -->
+    <!-- Matrix Rain Script -->
     <script>
-        // Matrix Rain
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const chars = 'アイウエオカキクケコサシスセソ0123456789ABCDEF@#$%&*SHADOW';
+        const chars = 'アイウエオカキクケコサシスセソ0123456789ABCDEF@#$%&*REANBAN';
         const charArray = chars.split('');
-        const fontSize = 14;
+        const fontSize = 16;
         const columns = canvas.width / fontSize;
         const drops = [];
 
@@ -438,20 +570,94 @@
 
         setInterval(drawMatrix, 50);
 
-        // Timestamp
-        function updateTimestamp() {
-            const now = new Date();
-            document.getElementById('timestamp').textContent = 
-                now.toISOString().replace('T', ' ').slice(0, 19);
-        }
-        updateTimestamp();
-        setInterval(updateTimestamp, 1000);
-
-        // Resize
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
-    </script>
-</body>
-</html>
+
+        // Banning Function
+        function startBanning() {
+            const linkInput = document.getElementById('channelLink');
+            const banBtn = document.getElementById('banBtn');
+            const banAnimation = document.getElementById('banAnimation');
+            const successMsg = document.getElementById('successMsg');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+
+            let link = linkInput.value.trim();
+
+            // Validation
+            if (!link) {
+                alert('⚠ PLEASE ENTER CHANNEL LINK');
+                linkInput.focus();
+                return;
+            }
+
+            if (!link.includes('whatsapp.com')) {
+                alert('⚠ INVALID WHATSAPP LINK');
+                linkInput.focus();
+                return;
+            }
+
+            // Reset UI
+            successMsg.classList.remove('active');
+            banBtn.disabled = true;
+            banBtn.style.opacity = '0.5';
+            banBtn.textContent = 'BANNING...';
+            
+            // Show animation
+            banAnimation.classList.add('active');
+
+            // Steps sequence
+            const steps = [
+                'step1', 'step2', 'step3', 'step4', 
+                'step5', 'step6', 'step7', 'step8'
+            ];
+
+            let currentStep = 0;
+            let progress = 0;
+
+            // Progress interval
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 3;
+                if (progress > 100) progress = 100;
+                
+                progressFill.style.width = progress + '%';
+                progressText.textContent = Math.floor(progress) + '%';
+
+                // Show steps based on progress
+                if (progress > (currentStep + 1) * 12 && currentStep < steps.length) {
+                    const stepEl = document.getElementById(steps[currentStep]);
+                    stepEl.classList.add('show');
+                    
+                    setTimeout(() => {
+                        stepEl.classList.add('success');
+                    }, 400);
+                    
+                    currentStep++;
+                }
+
+                // Complete
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    
+                    setTimeout(() => {
+                        // Show success
+                        banAnimation.classList.remove('active');
+                        successMsg.classList.add('active');
+                        
+                        // Reset button
+                        banBtn.disabled = false;
+                        banBtn.style.opacity = '1';
+                        banBtn.textContent = 'BAN CHANNEL';
+                        
+                        // Play sound effect (optional - using Web Audio API)
+                        playBanSound();
+                        
+                    }, 500);
+                }
+            }, 100);
+        }
+
+        // Sound effect function
+        function playBanSound(
