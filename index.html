@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REAN CHANNEL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Matrix Rain Background */
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.4;
+        }
+
+        /* Scanline Effect */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(255, 0, 0, 0.03) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 2;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Glitch Overlay */
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.02);
+            z-index: 3;
+            pointer-events: none;
+            animation: glitch-bg 0.3s infinite;
+        }
+
+        @keyframes glitch-bg {
+            0%, 100% { opacity: 0.02; }
+            50% { opacity: 0.05; }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* REAN Text - Huge Glitch */
+        .rean-text {
+            font-size: 8rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 15px;
+            position: relative;
+            animation: main-glitch 2s infinite;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 40px #ff0000,
+                0 0 80px #ff0000,
+                0 0 120px #ff0000;
+            margin-bottom: 10px;
+        }
+
+        @keyframes main-glitch {
+            0%, 90%, 100% {
+                transform: translate(0);
+                text-shadow: 
+                    0 0 10px #ff0000,
+                    0 0 20px #ff0000,
+                    0 0 40px #ff0000;
+            }
+            10% {
+                transform: translate(-8px, 4px);
+                text-shadow: 
+                    -8px 0 #00ff00,
+                    8px 0 #0000ff,
+                    0 0 20px #ff0000;
+            }
+            20% {
+                transform: translate(8px, -4px);
+                text-shadow: 
+                    8px 0 #00ff00,
+                    -8px 0 #0000ff,
+                    0 0 30px #ff0000;
+            }
+            30% {
+                transform: translate(-4px, -8px);
+                text-shadow: 
+                    -4px 0 #ff00ff,
+                    4px 0 #00ffff,
+                    0 0 40px #ff0000;
+            }
+            40% {
+                transform: translate(4px, 8px);
+                text-shadow: 
+                    4px 0 #ff00ff,
+                    -4px 0 #00ffff,
+                    0 0 50px #ff0000;
+            }
+        }
+
+        /* CHANNEL Text */
+        .channel-text {
+            font-size: 2.5rem;
+            color: #fff;
+            letter-spacing: 20px;
+            margin-top: 20px;
+            animation: pulse-channel 2s infinite;
+            text-shadow: 0 0 30px #fff;
+        }
+
+        @keyframes pulse-channel {
+            0%, 100% { 
+                opacity: 1;
+                text-shadow: 0 0 30px #fff, 0 0 60px #fff;
+            }
+            50% { 
+                opacity: 0.6;
+                text-shadow: 0 0 15px #fff;
+            }
+        }
+
+        /* Divider Line */
+        .divider {
+            width: 300px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            margin: 40px auto;
+            animation: line-glow 2s infinite;
+        }
+
+        @keyframes line-glow {
+            0%, 100% { box-shadow: 0 0 10px #ff0000; }
+            50% { box-shadow: 0 0 30px #ff0000, 0 0 50px #ff0000; }
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+            border: 3px solid #ff0000;
+            color: #ff0000;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            animation: btn-pulse 2s infinite;
+            margin-top: 20px;
+        }
+
+        .whatsapp-btn:hover {
+            background: #ff0000;
+            color: #000;
+            box-shadow: 0 0 40px #ff0000, 0 0 80px #ff0000;
+            transform: scale(1.05);
+        }
+
+        @keyframes btn-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+                border-color: #ff0000;
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.4);
+                border-color: #ff3333;
+            }
+        }
+
+        /* ENTER Text */
+        .enter-text {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 30px;
+            letter-spacing: 5px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Corner Decorations */
+        .corner {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            border: 3px solid #ff0000;
+            z-index: 5;
+            opacity: 0.5;
+        }
+
+        .corner-tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+        .corner-tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+        .corner-br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+        /* Warning Text */
+        .warning {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff0000;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            opacity: 0.6;
+            z-index: 10;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .rean-text { font-size: 4rem; letter-spacing: 8px; }
+            .channel-text { font-size: 1.5rem; letter-spacing: 10px; }
+            .whatsapp-btn { padding: 15px 30px; font-size: 1.2rem; }
+            .corner { width: 50px; height: 50px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Canvas -->
+    <canvas id="matrix"></canvas>
+
+    <!-- Effects -->
+    <div class="scanline"></div>
+    <div class="glitch-overlay"></div>
+
+    <!-- Corners -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- REAN Text -->
+        <h1 class="rean-text">REAN</h1>
+        
+        <!-- CHANNEL Text -->
+        <div class="channel-text">CHANNEL</div>
+
+        <!-- Divider -->
+        <div class="divider"></div>
+
+        <!-- WhatsApp Button -->
+        <a href="https://whatsapp.com/channel/0029Vai8q3S1SWt8Rk3G5L0Y" class="whatsapp-btn" target="_blank">
+            Enter WhatsApp Channel
+        </a>
+
+        <!-- Enter Text -->
+        <div class="enter-text">[ CLICK TO ENTER ]</div>
+    </div>
+
+    <!-- Warning -->
+    <div class="warning">⚠ RESTRICTED AREA ⚠</div>
+
+    <!-- Matrix Rain Script -->
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = 'アイウエオカキクケコサシスセソ0123456789ABCDEF@#$%&*REAN';
+        const charArray = chars.split('');
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#ff0000';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 50);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Auto redirect after 5 seconds (optional)
+        // setTimeout(() => {
+        //     window.location.href = 'https://whatsapp.com/channel/0029Vai8q3S1SWt8Rk3G5L0Y';
+        // }, 5000);
+    </script>
+</body>
+</html>
