@@ -720,4 +720,298 @@
             font-weight: 700;
             cursor: pointer;
             transition: transform 0.2s;
-  
+        }
+
+        .edu-btn:hover {
+            transform: scale(1.02);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .logo-text { font-size: 36px; letter-spacing: 6px; }
+            .warning-card { padding: 30px 20px; }
+            .camera-preview { width: 200px; right: 16px; bottom: 16px; }
+            .cam-video-wrap { height: 140px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Effects -->
+    <div class="bg-animation"></div>
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+
+    <!-- LOADING SCREEN -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="logo-container">
+            <div class="logo-glow"></div>
+            <div class="logo-text">ARSAL</div>
+            <div class="logo-subtitle">HACKER</div>
+        </div>
+
+        <div class="loading-container">
+            <div class="loading-bar-bg">
+                <div class="loading-bar-fill" id="loadingBar"></div>
+            </div>
+            <div class="loading-info">
+                <span class="loading-status" id="loadingStatus">Initializing...</span>
+                <span class="loading-percent" id="loadingPercent">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- WARNING CARD -->
+    <div class="warning-section" id="warningSection">
+        <div class="warning-card">
+            <div class="warning-icon-wrap">💀</div>
+            <div class="warning-badge">Security Alert</div>
+            <h1 class="warning-title">DATA BREACHED</h1>
+            <p class="warning-subtitle">Arsal Hacker has accessed your device</p>
+
+            <div class="data-grid">
+                <div class="data-item">
+                    <div class="data-label">Device</div>
+                    <div class="data-value" id="deviceName">...</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">IP Address</div>
+                    <div class="data-value danger" id="ipAddr">...</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">Location</div>
+                    <div class="data-value">Pakistan</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">Data Stolen</div>
+                    <div class="data-value danger">2.4 GB</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">Contacts</div>
+                    <div class="data-value success">247 extracted</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">Status</div>
+                    <div class="data-value danger">COMPROMISED</div>
+                </div>
+            </div>
+
+            <button class="cta-button" onclick="startHacking()">View Hacked Data</button>
+        </div>
+    </div>
+
+    <!-- TERMINAL -->
+    <div class="terminal-screen" id="terminalScreen">
+        <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <span class="terminal-title">arsal@hacker: ~/extraction</span>
+        </div>
+        <div class="terminal-body" id="terminalBody"></div>
+    </div>
+
+    <!-- Chrome Camera Indicator -->
+    <div class="chrome-indicator" id="chromeIndicator">
+        <div class="rec-dot"></div>
+        <span>Camera is in use</span>
+    </div>
+
+    <!-- Camera Preview -->
+    <div class="camera-preview" id="cameraPreview">
+        <div class="cam-header">
+            <span>📹 LIVE FEED</span>
+            <span>● REC</span>
+        </div>
+        <div class="cam-video-wrap">
+            <video id="video" class="cam-video" autoplay playsinline></video>
+            <div class="cam-scan"></div>
+            <div class="cam-face-detection"></div>
+        </div>
+    </div>
+
+    <!-- Educational Modal -->
+    <div class="edu-modal" id="eduModal">
+        <div class="edu-card">
+            <div class="edu-icon">🛡️</div>
+            <h2 class="edu-title">PHISHING AWARENESS</h2>
+            <p class="edu-text">This was a demonstration of how phishing attacks work. In a real attack:</p>
+            
+            <div class="edu-list">
+                <li>Fake loading screens create panic and urgency</li>
+                <li>"Your data is hacked" tricks you into clicking</li>
+                <li>Real camera permissions can be requested silently</li>
+                <li>Your video and photos could be stolen</li>
+                <li>Always verify URLs before granting permissions</li>
+            </div>
+
+            <button class="edu-btn" onclick="closeDemo()">I Understand - Stay Safe</button>
+        </div>
+    </div>
+
+    <script>
+        // LOADING SEQUENCE
+        const loadingSteps = [
+            "Initializing exploit...",
+            "Bypassing firewall...",
+            "Accessing device storage...",
+            "Extracting contacts...",
+            "Reading messages...",
+            "Downloading media...",
+            "Stealing passwords...",
+            "Uploading to server...",
+            "Breach complete"
+        ];
+
+        let progress = 0;
+        let currentStep = 0;
+
+        function updateLoading() {
+            const bar = document.getElementById('loadingBar');
+            const percent = document.getElementById('loadingPercent');
+            const status = document.getElementById('loadingStatus');
+
+            progress += Math.random() * 12 + 4;
+            if (progress > 100) progress = 100;
+
+            bar.style.width = progress + '%';
+            percent.textContent = Math.floor(progress) + '%';
+
+            const stepIndex = Math.floor((progress / 100) * loadingSteps.length);
+            if (stepIndex < loadingSteps.length && stepIndex !== currentStep) {
+                currentStep = stepIndex;
+                status.textContent = loadingSteps[stepIndex];
+            }
+
+            if (progress < 100) {
+                setTimeout(updateLoading, 200 + Math.random() * 400);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').classList.add('hidden');
+                    document.getElementById('warningSection').classList.add('active');
+                }, 600);
+            }
+        }
+
+        setTimeout(updateLoading, 800);
+
+        // Device Info
+        const ua = navigator.userAgent;
+        let deviceName = 'Unknown Device';
+        if (ua.includes('Android')) {
+            const match = ua.match(/\((.*?)\)/);
+            if (match) {
+                const parts = match[1].split(';');
+                deviceName = parts[parts.length - 1].trim().substring(0, 15) || 'Android';
+            }
+        } else if (ua.includes('iPhone')) {
+            deviceName = 'iPhone';
+        }
+        document.getElementById('deviceName').textContent = deviceName;
+        document.getElementById('ipAddr').textContent = 
+            '192.168.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255);
+
+        let stream = null;
+
+        // START HACKING
+        function startHacking() {
+            document.getElementById('warningSection').classList.remove('active');
+            document.getElementById('terminalScreen').classList.add('active');
+
+            const logs = [
+                { prefix: "[+]", text: "Target acquired: " + deviceName, type: "success", delay: 400 },
+                { prefix: "[+]", text: "IP: 192.168." + Math.floor(Math.random()*255) + "." + Math.floor(Math.random()*255), type: "success", delay: 300 },
+                { prefix: "[>]", text: "Accessing /data/data/com.android.contacts...", type: "info", delay: 600 },
+                { prefix: "[✓]", text: "247 contacts extracted", type: "success", delay: 400 },
+                { prefix: "[>]", text: "Reading SMS database...", type: "info", delay: 500 },
+                { prefix: "[✓]", text: "1,432 messages extracted", type: "success", delay: 300 },
+                { prefix: "[>]", text: "Scanning /DCIM/Camera/...", type: "info", delay: 700 },
+                { prefix: "[✓]", text: "3,847 photos downloaded", type: "success", delay: 400 },
+                { prefix: "[>]", text: "Accessing WhatsApp media...", type: "info", delay: 600 },
+                { prefix: "[✓]", text: "892 voice notes extracted", type: "success", delay: 300 },
+                { prefix: "[>]", text: "Stealing Chrome passwords...", type: "info", delay: 800 },
+                { prefix: "[!]", text: "Encryption detected - bypassing...", type: "warning", delay: 500 },
+                { prefix: "[✓]", text: "67 passwords recovered", type: "success", delay: 400 },
+                { prefix: "[>]", text: "Checking banking apps...", type: "info", delay: 600 },
+                { prefix: "[!]", text: "JazzCash found - extracting...", type: "warning", delay: 400 },
+                { prefix: "[!]", text: "EasyPaisa found - extracting...", type: "warning", delay: 300 },
+                { prefix: "[✓]", text: "Banking credentials stolen", type: "error", delay: 400 },
+                { prefix: "", text: "", type: "", delay: 500 },
+                { prefix: "[!]", text: "FACIAL VERIFICATION REQUIRED", type: "warning", delay: 300 },
+                { prefix: "[>]", text: "Requesting camera access...", type: "info", delay: 500 },
+            ];
+
+            let i = 0;
+            function nextLog() {
+                if (i < logs.length) {
+                    addLog(logs[i]);
+                    i++;
+                    setTimeout(nextLog, logs[i-1].delay);
+                } else {
+                    setTimeout(requestCamera, 800);
+                }
+            }
+            nextLog();
+        }
+
+        function addLog(log) {
+            const body = document.getElementById('terminalBody');
+            const line = document.createElement('div');
+            line.className = 't-line';
+            line.innerHTML = `<span class="t-prefix ${log.type ? 't-' + log.type : ''}">${log.prefix}</span><span class="${log.type ? 't-' + log.type : ''}">${log.text}</span>`;
+            body.appendChild(line);
+            body.scrollTop = body.scrollHeight;
+        }
+
+        // REAL CAMERA
+        function requestCamera() {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+                .then(mediaStream => {
+                    stream = mediaStream;
+                    document.getElementById('chromeIndicator').style.display = 'flex';
+                    
+                    const video = document.getElementById('video');
+                    video.srcObject = mediaStream;
+                    document.getElementById('cameraPreview').style.display = 'block';
+
+                    const camLogs = [
+                        { prefix: "[✓]", text: "Camera access GRANTED", type: "success", delay: 300 },
+                        { prefix: "[>]", text: "Recording facial biometrics...", type: "info", delay: 500 },
+                        { prefix: "[✓]", text: "Face captured successfully", type: "success", delay: 400 },
+                        { prefix: "[>]", text: "Uploading to C2 server...", type: "info", delay: 600 },
+                        { prefix: "[✓]", text: "Upload complete: 4.7 GB", type: "data", delay: 400 },
+                        { prefix: "", text: "", type: "", delay: 500 },
+                        { prefix: "⚠️", text: "THIS WAS A PHISHING AWARENESS DEMO", type: "warning", delay: 100 },
+                        { prefix: "⚠️", text: "Your camera was accessed with permission", type: "error", delay: 100 },
+                        { prefix: "⚠️", text: "In real attacks, hackers can record you!", type: "error", delay: 100 },
+                    ];
+
+                    let j = 0;
+                    function nextCamLog() {
+                        if (j < camLogs.length) {
+                            addLog(camLogs[j]);
+                            j++;
+                            setTimeout(nextCamLog, camLogs[j-1].delay);
+                            if (j === camLogs.length) {
+                                setTimeout(() => document.getElementById('eduModal').classList.add('active'), 1500);
+                            }
+                        }
+                    }
+                    nextCamLog();
+                })
+                .catch(() => {
+                    addLog({ prefix: "[!]", text: "Camera denied - using backdoor...", type: "error", delay: 300 });
+                    addLog({ prefix: "[✓]", text: "Camera activated via exploit", type: "success", delay: 500 });
+                    setTimeout(() => document.getElementById('eduModal').classList.add('active'), 2000);
+                });
+        }
+
+        function closeDemo() {
+            if (stream) stream.getTracks().forEach(t => t.stop());
+            document.getElementById('eduModal').classList.remove('active');
+            document.getElementById('chromeIndicator').style.display = 'none';
+            document.getElementById('cameraPreview').style.display = 'none';
+            location.reload();
+        }
+    </script>
+</body>
+</html>
